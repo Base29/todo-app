@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -11,9 +13,10 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('login');
+        $this->middleware('auth:api')->except('login', 'register');
     }
 
+    // Login
     public function login(Request $request)
     {
         $creds = $request->only('email', 'password');
@@ -30,11 +33,31 @@ class AuthController extends Controller
         ]);
     }
 
+    // Register
+    public function register(Request $request)
+    {
+        $creds = $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+        ]);
+
+        $user = User::create([
+            'email' => $creds['email'],
+            'password' => Hash::make($creds['password']),
+        ]);
+
+        return response([
+            'success' => true,
+            'user' => $user,
+        ]);
+    }
+
     public function checkToken()
     {
         return response(['success' => true], 200);
     }
 
+    // Logout
     public function logout()
     {
         auth()->logout();

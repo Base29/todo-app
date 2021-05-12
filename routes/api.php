@@ -17,4 +17,5 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('checktoken', [AuthController::class, 'checkToken']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('register', [AuthController::class, 'register']);
 });
