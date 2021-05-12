@@ -57,7 +57,7 @@ export default {
                 if (res.data.success) {
                     // Update the store
                     this.$store.commit('setToken', res.data.token);
-                    this.$router.push('/dashboard');
+                    this.$router.push('/dashboard').catch((err) => console.log('ROUTER ERROR', err));
                 }
             }).catch(err => console.log('LOGIN ERROR', err));
         }
@@ -71,7 +71,8 @@ export default {
     border: 1px solid #eee;
     padding: 10px;
     margin: 50px auto;
-    width: 500px;
+    width: 40%;
+    height: 70%;
 }
 
 button {
