@@ -14,6 +14,9 @@
         <div class="form-group">
             <input class="form-control" placeholder="Password" type="password" v-model="credentials.password" />
         </div>
+        <div class="form-group">
+            <input class="form-control" placeholder="Confirm Password" type="password" v-model="credentials.password_confirmation" />
+        </div>
         <button class="btn btn-primary" @click.prevent="register">Register</button>
     </form>
 
@@ -29,7 +32,8 @@ export default {
         return {
             credentials: {
                 email: '',
-                password:''
+                password:'',
+                password_confirmation: ''
             },
             loading: true,
         }

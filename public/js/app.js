@@ -2139,6 +2139,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
@@ -2146,7 +2149,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       credentials: {
         email: '',
-        password: ''
+        password: '',
+        password_confirmation: ''
       },
       loading: true
     };
@@ -38611,6 +38615,34 @@ var render = function() {
                       return
                     }
                     _vm.$set(_vm.credentials, "password", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.credentials.password_confirmation,
+                    expression: "credentials.password_confirmation"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { placeholder: "Confirm Password", type: "password" },
+                domProps: { value: _vm.credentials.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.credentials,
+                      "password_confirmation",
+                      $event.target.value
+                    )
                   }
                 }
               })
