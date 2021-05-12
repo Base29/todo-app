@@ -3,20 +3,29 @@ import VueRouter from "vue-router";
 import Home from "./Home";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
+import Register from "./Register";
 
 Vue.use(VueRouter);
 
 export const routes = [
     {
         path: "/",
-        component: Home
+        component: Home,
+        name: "Home"
     },
     {
         path: "/login",
-        component: Login
+        component: Login,
+        name: "Login"
     },
     {
         path: "/dashboard",
-        component: Dashboard
+        component: Dashboard,
+        name: "Dashboard"
+    },
+    {
+        path: "/register",
+        component: Register,
+        name: "Register"
     }
 ];

@@ -1,8 +1,8 @@
 <template lang="">
     <div>
         <nav class="navbar navbar-dark bg-dark">
-           <div class="links">
-                <!-- <div>
+           <!-- <div class="links">
+                <div>
                     <router-link to="/">Home</router-link>
                 </div>
                 <div>
@@ -10,10 +10,13 @@
                 </div>
                 <div>
                     <router-link to="/dashboard">Dashboard</router-link>
-                </div> -->
-           </div>
+                </div>
+           </div> -->
             <div class='logout' v-if="this.$store.state.token !== ''">
                 <button class="btn btn-info" @click="logout">Logout</button>
+            </div>
+            <div class='register' v-if="this.$store.state.token === ''">
+                <router-link to="/register">Register</router-link>
             </div>
         </nav>
         <router-view></router-view>
@@ -56,21 +59,23 @@ export default {
 <style scoped>
 
 .navbar {
-    display: flex;
+    justify-content: flex-end;
     height: 70px;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-
 }
 
 .navbar div {
-    padding: 5px 20px;
+    padding: 10px 20px;
     margin: 5px 5px;
 }
 
 .logout {
     align-self: flex-end;
 }
+
+.register {
+    align-self: flex-end;
+}
+
 .links {
     display: flex;
     align-self: flex-start;

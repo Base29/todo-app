@@ -5,8 +5,8 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <div class="login" v-else>
-    <h2>Login</h2>
+    <div class="register" v-else>
+    <h2>Register</h2>
     <form class="form">
         <div class="form-group">
             <input class="form-control" placeholder="Email" v-model="credentials.email"/>
@@ -14,7 +14,7 @@
         <div class="form-group">
             <input class="form-control" placeholder="Password" type="password" v-model="credentials.password" />
         </div>
-        <button class="btn btn-primary" @click.prevent="login">Login</button>
+        <button class="btn btn-primary" @click.prevent="register">Register</button>
     </form>
 
 </div>
@@ -24,7 +24,7 @@
 <script>
 import axios from 'axios';
 export default {
-    name: "Login",
+    name: "Register",
     data() {
         return {
             credentials: {
@@ -53,21 +53,19 @@ export default {
         }
     },
     methods: {
-        login() {
-            axios.post('api/login', this.credentials).then(res => {
+        register() {
+            axios.post('api/register', this.credentials).then(res => {
                 if (res.data.success) {
-                    // Update the store
-                    this.$store.commit('setToken', res.data.token);
-                    this.$router.push('/dashboard').catch((err) => console.log('ROUTER ERROR', err));
+                    this.$router.push('/login').catch((err) => console.log('ROUTER ERROR', err));
                 }
-            }).catch(err => console.log('LOGIN ERROR', err));
+            }).catch(err => console.log('REGISTER ERROR', err));
         }
     }
 }
 </script>
 
 <style scoped>
-.login {
+.register {
     background-color: #fff;
     border: 1px solid #eee;
     padding: 10px;
@@ -76,11 +74,12 @@ export default {
     height: 70%;
 }
 
+.register h2 {
+    margin-bottom: 20px;
+}
+
 button {
     display: block;
     margin: 0 auto;
-}
-.login h2 {
-    margin-bottom: 20px;
 }
 </style>
