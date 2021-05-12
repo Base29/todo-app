@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -27,9 +28,11 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $user = auth()->user();
+        $userArr = Arr::add($user, 'token', $token);
         return response([
             'success' => true,
-            'token' => $token,
+            'user' => $userArr,
         ]);
     }
 

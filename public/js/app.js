@@ -2088,7 +2088,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/login', this.credentials).then(function (res) {
         if (res.data.success) {
           // Update the store
-          _this2.$store.commit('setToken', res.data.token);
+          _this2.$store.commit('setToken', res.data.user.token);
 
           _this2.$router.push('/dashboard')["catch"](function (err) {
             return console.log('ROUTER ERROR', err);

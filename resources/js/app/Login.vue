@@ -58,7 +58,7 @@ export default {
             axios.post('api/login', this.credentials).then(res => {
                 if (res.data.success) {
                     // Update the store
-                    this.$store.commit('setToken', res.data.token);
+                    this.$store.commit('setToken', res.data.user.token);
                     this.$router.push('/dashboard').catch((err) => console.log('ROUTER ERROR', err));
                 }
             }).catch(err => console.log('LOGIN ERROR', err));
