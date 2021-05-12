@@ -16,7 +16,13 @@
                 <button class="btn btn-info" @click="logout">Logout</button>
             </div>
             <div class='register' v-if="this.$store.state.token === ''">
-                <router-link to="/register">Register</router-link>
+                <div v-if="this.$store.state.currentRoute === 'Login'">
+                    <router-link to="/register">Register</router-link>
+                </div>
+                <div v-if="this.$store.state.currentRoute === 'Register'">
+                    <router-link to="/login">Login</router-link>
+                </div>
+                
             </div>
         </nav>
         <router-view></router-view>
@@ -64,7 +70,7 @@ export default {
 }
 
 .navbar div {
-    padding: 10px 20px;
+    padding: 3px 20px;
     margin: 5px 5px;
 }
 

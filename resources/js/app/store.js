@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        token: localStorage.getItem("token") || ""
+        token: localStorage.getItem("token") || "",
+        currentRoute: ""
     },
     mutations: {
         setToken(state, token) {
@@ -16,6 +17,10 @@ export const store = new Vuex.Store({
         clearToken(state) {
             localStorage.removeItem("token");
             state.token = "";
+        },
+
+        setCurrentRoute(state, routeName) {
+            state.currentRoute = routeName;
         }
     }
 });

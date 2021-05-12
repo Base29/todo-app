@@ -35,6 +35,7 @@ export default {
         }
     },
     mounted() {
+        this.$store.commit('setCurrentRoute', this.$router.currentRoute.name);
         if (this.$store.state.token !== '') {
             axios.post('api/checktoken', {token: this.$store.state.token})
             .then(res => {

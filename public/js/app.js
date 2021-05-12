@@ -1871,6 +1871,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
@@ -2054,6 +2060,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    this.$store.commit('setCurrentRoute', this.$router.currentRoute.name);
+
     if (this.$store.state.token !== '') {
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/checktoken', {
         token: this.$store.state.token
@@ -2145,6 +2153,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
+
+    this.$store.commit('setCurrentRoute', this.$router.currentRoute.name);
 
     if (this.$store.state.token !== '') {
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/checktoken', {
@@ -2281,7 +2291,8 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_1__.default);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__.default.Store({
   state: {
-    token: localStorage.getItem("token") || ""
+    token: localStorage.getItem("token") || "",
+    currentRoute: ""
   },
   mutations: {
     setToken: function setToken(state, token) {
@@ -2291,6 +2302,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__.default.Store({
     clearToken: function clearToken(state) {
       localStorage.removeItem("token");
       state.token = "";
+    },
+    setCurrentRoute: function setCurrentRoute(state, routeName) {
+      state.currentRoute = routeName;
     }
   }
 });
@@ -6799,7 +6813,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar[data-v-245d94f6] {\n    justify-content: flex-end;\n    height: 70px;\n}\n.navbar div[data-v-245d94f6] {\n    padding: 10px 20px;\n    margin: 5px 5px;\n}\n.logout[data-v-245d94f6] {\n    align-self: flex-end;\n}\n.register[data-v-245d94f6] {\n    align-self: flex-end;\n}\n.links[data-v-245d94f6] {\n    display: flex;\n    align-self: flex-start;\n}\n    \n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar[data-v-245d94f6] {\n    justify-content: flex-end;\n    height: 70px;\n}\n.navbar div[data-v-245d94f6] {\n    padding: 3px 20px;\n    margin: 5px 5px;\n}\n.logout[data-v-245d94f6] {\n    align-self: flex-end;\n}\n.register[data-v-245d94f6] {\n    align-self: flex-end;\n}\n.links[data-v-245d94f6] {\n    display: flex;\n    align-self: flex-start;\n}\n    \n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38320,16 +38334,31 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         this.$store.state.token === ""
-          ? _c(
-              "div",
-              { staticClass: "register" },
-              [
-                _c("router-link", { attrs: { to: "/register" } }, [
-                  _vm._v("Register")
-                ])
-              ],
-              1
-            )
+          ? _c("div", { staticClass: "register" }, [
+              this.$store.state.currentRoute === "Login"
+                ? _c(
+                    "div",
+                    [
+                      _c("router-link", { attrs: { to: "/register" } }, [
+                        _vm._v("Register")
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              this.$store.state.currentRoute === "Register"
+                ? _c(
+                    "div",
+                    [
+                      _c("router-link", { attrs: { to: "/login" } }, [
+                        _vm._v("Login")
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ])
           : _vm._e()
       ]),
       _vm._v(" "),
