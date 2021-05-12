@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,5 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('checktoken', [AuthController::class, 'checkToken']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('register', [AuthController::class, 'register']);
+    Route::post('dashboard', [DashboardController::class, 'index']);
 });
