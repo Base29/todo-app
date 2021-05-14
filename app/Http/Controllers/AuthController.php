@@ -20,7 +20,10 @@ class AuthController extends Controller
     // Login
     public function login(Request $request)
     {
+        // Validating request
         $creds = $request->only('email', 'password');
+
+        // Generating JWT token from provided creds
         $token = JWTAuth::attempt($creds);
         if (!$token) {
             return response([
@@ -28,7 +31,10 @@ class AuthController extends Controller
             ], 401);
         }
 
+        // Authenticated user
         $user = auth()->user();
+
+        // Adding token to user array
         $userArr = Arr::add($user, 'token', $token);
         return response([
             'success' => true,
@@ -39,11 +45,13 @@ class AuthController extends Controller
     // Register
     public function register(Request $request)
     {
+        // Validating request
         $creds = $request->validate([
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
         ]);
 
+        // Creating new user in database
         $user = User::create([
             'email' => $creds['email'],
             'password' => Hash::make($creds['password']),
