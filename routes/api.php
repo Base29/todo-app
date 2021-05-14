@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TodoItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +19,6 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('checktoken', [AuthController::class, 'checkToken']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::post('dashboard', [DashboardController::class, 'index']);
+    Route::get('items', [TodoItemController::class, 'index']);
+    Route::post('items', [TodoItemController::class, 'create']);
 });
