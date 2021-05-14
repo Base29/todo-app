@@ -50,4 +50,36 @@ class TodoItemController extends Controller
             'item' => $item,
         ]);
     }
+
+    public function update(Request $request, $id)
+    {
+
+        // Authenticated user
+        $user = auth()->user();
+
+        // Check if item exists
+        $item = TodoItem::find($id);
+
+        if (!$item) {
+            return response([
+                'success' => false,
+                'message' => 'Item not found',
+            ]);
+        }
+
+        if (!$item->ownedBy(auth()->user())) {
+            return response([
+                'success' => false,
+                'message' => 'You are not allowed to update or edit this item',
+            ]);
+        }
+
+        // Updating item
+        $item->update($request->all());
+
+        return response([
+            "success" => true,
+            "item" => $item,
+        ]);
+    }
 }
