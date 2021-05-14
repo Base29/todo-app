@@ -13,6 +13,9 @@ class DashboardController extends Controller
     }
     public function index() {
 
+        // Authenticated user details
+        $user = auth()->user();
+
         return response([
             'success' => true,
             'message' => 'You are in the dashboard'
