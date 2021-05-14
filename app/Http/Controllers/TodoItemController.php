@@ -40,10 +40,7 @@ class TodoItemController extends Controller
         // Create item in the database
         $item = $request->user()
             ->items()
-            ->create([
-                'title' => $request->title,
-                'description' => $request->description,
-            ]);
+            ->create($request->all());
 
         return response([
             'success' => true,
@@ -75,7 +72,7 @@ class TodoItemController extends Controller
         }
 
         // Updating item
-        $item->update($request->all());
+        $item->update($request->only('title', 'description'));
 
         return response([
             "success" => true,
