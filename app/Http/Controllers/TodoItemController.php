@@ -48,6 +48,7 @@ class TodoItemController extends Controller
         ]);
     }
 
+    // Update Todo Item
     public function update(Request $request, $id)
     {
 
@@ -64,7 +65,7 @@ class TodoItemController extends Controller
             ]);
         }
 
-        if (!$item->ownedBy(auth()->user())) {
+        if (!$item->ownedBy($user)) {
             return response([
                 'success' => false,
                 'message' => 'You are not allowed to update or edit this item',
@@ -75,8 +76,40 @@ class TodoItemController extends Controller
         $item->update($request->only('title', 'description'));
 
         return response([
-            "success" => true,
-            "item" => $item,
+            'success' => true,
+            'item' => $item,
+        ]);
+    }
+
+    // Delete Todo Item
+    public function delete($id)
+    {
+        // Authenticated user
+        $user = auth()->user();
+
+        // Check if item exists
+        $item = TodoItem::find($id);
+
+        if (!$item) {
+            return response([
+                'success' => false,
+                'message' => 'Item not found',
+            ]);
+        }
+
+        if (!$item->ownedBy($user)) {
+            return response([
+                'success' => false,
+                'message' => 'You are not allowed to delete this item',
+            ]);
+        }
+
+        // Updating item
+        $item->delete();
+
+        return response([
+            'success' => true,
+            'message' => 'Item deleted successfully',
         ]);
     }
 }
