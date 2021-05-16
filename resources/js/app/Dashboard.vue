@@ -6,18 +6,23 @@
         </div>
       </div>
       <div v-else>
-          Logged in 
+          <list-view :items="items" v-on:reloadlist="getList()" /> 
       </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ListView from './ListView'
 export default {
     name: "Dashboard",
+    components: {
+        ListView
+    },
     data() {
         return {
-            loading: true
+            loading: true,
+            items: [],
         }
     },
     mounted() {
@@ -36,6 +41,22 @@ export default {
             this.loading = false;
         }
     },
+    methods: {
+        getList () {
+            axios.get('api/items', {
+                headers: {
+                    'Authorization': `Bearer ${this.$store.state.token}`
+                }
+            }).then(response => {
+                if (response.data.success) {
+                    this.items = response.data.items
+                }
+            }).catch(error => console.log('error'. error))
+        }
+    },
+    created () {
+        this.getList()
+    }
 }
 </script>
 
