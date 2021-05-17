@@ -2,19 +2,19 @@
   <div class="item-container">
     <div class="item-data">
       <span class="label">Title: </span>
-      <span :class="[this.done ? 'completed' : '', 'itemText']">{{
+      <span :class="[this.item.completed ? 'completed' : '', 'itemText']">{{
         item.title
       }}</span>
       <br />
       <span class="label">Description: </span>
-      <span :class="[this.done ? 'completed' : '', 'itemText']">{{
+      <span :class="[this.item.completed ? 'completed' : '', 'itemText']">{{
         item.description
       }}</span>
     </div>
     <div class="action-container">
       <div class="done-btn">
         <button
-          :class="[this.done ? 'chkBox-done' : 'chkBox']"
+          :class="[this.item.completed ? 'chkBox-done' : 'chkBox']"
           @click="markDone()"
         >
           <font-awesome-icon icon="check-square" />
@@ -22,7 +22,7 @@
       </div>
       <div class="edit-btn">
         <button
-          :class="this.done ? 'editpen-disabled' : 'editpen'"
+          :class="this.item.completed ? 'editpen-disabled' : 'editpen'"
           @click="editItem()"
           :disabled="isDisabled"
         >
@@ -81,7 +81,7 @@ export default {
         },
       };
       const data = {
-        done: this.done,
+        done: !this.item.completed,
       };
       axios
         .put(endpoint, data, header)

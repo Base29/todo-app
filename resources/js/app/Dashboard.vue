@@ -9,7 +9,7 @@
       <div v-if="this.items.length > 0">
         <list-view :items="items" v-on:reloadlist="getList()" />
       </div>
-      <div v-else>
+      <div class="no-items" v-else>
         <h2>No Items</h2>
       </div>
     </div>
@@ -73,4 +73,9 @@ export default {
 </script>
 
 <style>
+.no-items {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 0 0;
+}
 </style>
