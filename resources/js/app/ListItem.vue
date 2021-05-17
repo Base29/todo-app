@@ -18,7 +18,7 @@
         />
       </div> -->
       <div class="edit-btn">
-        <button class="editpen">
+        <button class="editpen" @click="editItem()">
           <font-awesome-icon icon="pen-square" />
         </button>
       </div>
@@ -31,9 +31,28 @@
   </div>
 </template>
 <script>
+import API_URL from "./config";
 export default {
   name: "ListItem",
   props: ["item"],
+  mounted() {
+    if (this.$store.state.token !== "") {
+      const endpoint = `${API_URL}/checktoken`;
+      axios
+        .post(endpoint, { token: this.$store.state.token })
+        .then((res) => {
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.$store.commit("clearToken");
+          this.$router.push("/login");
+        });
+    } else {
+      this.$router.push("/login");
+      this.loading = false;
+    }
+  },
   methods: {
     updateCheck() {
       axios
@@ -60,6 +79,11 @@ export default {
           }
         })
         .catch((error) => console.log("error".error));
+    },
+    editItem() {
+      console.log("EDIT ITEM", this.item.id);
+      const itemId = this.item.id;
+      this.$router.push({ name: "Edit", params: { itemId } });
     },
   },
 };

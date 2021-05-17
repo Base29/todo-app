@@ -104,12 +104,40 @@ class TodoItemController extends Controller
             ]);
         }
 
-        // Updating item
+        // Deleting item
         $item->delete();
 
         return response([
             'success' => true,
             'message' => 'Item deleted successfully',
+        ]);
+    }
+
+    public function singleItem($id)
+    {
+        // Authenticated user
+        $user = auth()->user();
+
+        // Check if item exists
+        $item = TodoItem::find($id);
+
+        if (!$item) {
+            return response([
+                'success' => false,
+                'message' => 'Item not found',
+            ]);
+        }
+
+        if (!$item->ownedBy($user)) {
+            return response([
+                'success' => false,
+                'message' => 'You are not allowed to delete this item',
+            ]);
+        }
+
+        return response([
+            'success' => true,
+            'item' => $item,
         ]);
     }
 }

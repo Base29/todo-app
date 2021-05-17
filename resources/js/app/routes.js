@@ -1,18 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "./Home";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Register from "./Register";
+import EditItem from "./EditItem.vue";
 
 Vue.use(VueRouter);
 
 export const routes = [
-    {
-        path: "/",
-        component: Home,
-        name: "Home"
-    },
     {
         path: "/login",
         component: Login,
@@ -27,5 +22,10 @@ export const routes = [
         path: "/register",
         component: Register,
         name: "Register"
+    },
+    {
+        path: "/edit/:itemId",
+        name: "Edit",
+        component: EditItem
     }
 ];
