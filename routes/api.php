@@ -24,4 +24,5 @@ Route::group(['namespace' => 'Api'], function () {
     Route::put('item/{id}', [TodoItemController::class, 'update']);
     Route::delete('item/{id}', [TodoItemController::class, 'delete']);
     Route::get('item/{id}', [TodoItemController::class, 'singleItem']);
+    Route::put('done/{id}', [TodoItemController::class, 'done']);
 });

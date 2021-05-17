@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TodoItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TodoItemController extends Controller
@@ -137,6 +138,41 @@ class TodoItemController extends Controller
 
         return response([
             'success' => true,
+            'item' => $item,
+        ]);
+    }
+
+    public function done(Request $request, $id)
+    {
+
+        // Authenticated user
+        $user = auth()->user();
+
+        // Check if item exists
+        $item = TodoItem::find($id);
+
+        if (!$item) {
+            return response([
+                'success' => false,
+                'message' => 'Item not found',
+            ]);
+        }
+
+        if (!$item->ownedBy($user)) {
+            return response([
+                'success' => false,
+                'message' => 'You are not allowed to delete this item',
+            ]);
+        }
+
+        // Updating completed and completed_at fields
+        $item->completed = true;
+        $item->completed_at = Carbon::now();
+        $item->save();
+
+        return response([
+            'success' => true,
+            'message' => 'Item marked as done',
             'item' => $item,
         ]);
     }

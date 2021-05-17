@@ -9,11 +9,12 @@ import {
     faPlusSquare,
     faTrash,
     faPenSquare,
-    faEdit
+    faEdit,
+    faCheckSquare
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faPlusSquare, faTrash, faEdit, faPenSquare);
+library.add(faPlusSquare, faTrash, faEdit, faPenSquare, faCheckSquare);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

@@ -2,25 +2,30 @@
   <div class="item-container">
     <div class="item-data">
       <span class="label">Title: </span>
-      <span :class="[item.completed ? 'completed' : '', 'itemText']">{{
+      <span :class="[this.done ? 'completed' : '', 'itemText']">{{
         item.title
       }}</span>
       <br />
       <span class="label">Description: </span>
-      <span :class="[item.completed ? 'completed' : '', 'itemText']">{{
+      <span :class="[this.done ? 'completed' : '', 'itemText']">{{
         item.description
       }}</span>
     </div>
     <div class="action-container">
-      <!-- <div class="chkBox">
-        <input
-          type="checkbox"
-          @change="updateCheck()"
-          v-model="item.completed"
-        />
-      </div> -->
+      <div class="done-btn">
+        <button
+          :class="[this.done ? 'chkBox-done' : 'chkBox']"
+          @click="markDone()"
+        >
+          <font-awesome-icon icon="check-square" />
+        </button>
+      </div>
       <div class="edit-btn">
-        <button class="editpen" @click="editItem()">
+        <button
+          :class="this.done ? 'editpen-disabled' : 'editpen'"
+          @click="editItem()"
+          :disabled="this.done"
+        >
           <font-awesome-icon icon="pen-square" />
         </button>
       </div>
@@ -37,6 +42,11 @@ import API_URL from "./config";
 export default {
   name: "ListItem",
   props: ["item"],
+  data() {
+    return {
+      done: this.item.completed,
+    };
+  },
   mounted() {
     if (this.$store.state.token !== "") {
       const endpoint = `${API_URL}/checktoken`;
@@ -57,6 +67,7 @@ export default {
   },
   methods: {
     markDone() {
+      this.done = !this.item.completed;
       const itemId = this.item.id;
       const endpoint = `${API_URL}/done/${itemId}`;
       const header = {
@@ -65,12 +76,13 @@ export default {
         },
       };
       const data = {
-        item: this.item,
+        done: this.done,
       };
       axios
         .put(endpoint, data, header)
         .then((response) => {
           if (response.status === 200) {
+            console.log("response", response.data);
             this.$emit("itemchanged");
           }
         })
@@ -145,6 +157,30 @@ export default {
   background: none;
   border: none;
   color: blue;
+  outline: none;
+  font-size: 20px;
+}
+
+.editpen-disabled {
+  background: none;
+  border: none;
+  color: #999999;
+  outline: none;
+  font-size: 20px;
+}
+
+.chkBox {
+  background: none;
+  border: none;
+  color: #999999;
+  outline: none;
+  font-size: 20px;
+}
+
+.chkBox-done {
+  background: none;
+  border: none;
+  color: #0be321;
   outline: none;
   font-size: 20px;
 }
