@@ -23,7 +23,9 @@
             v-model="credentials.password"
           />
         </div>
-        <button class="btn btn-primary" @click.prevent="login">Login</button>
+        <button class="btn btn-primary btn-block" @click.prevent="login">
+          LOGIN
+        </button>
       </form>
     </div>
   </div>
@@ -94,10 +96,6 @@ export default {
   height: 70%;
 }
 
-button {
-  display: block;
-  margin: 0 auto;
-}
 .login h2 {
   margin-bottom: 20px;
 }

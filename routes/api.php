@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('register', [AuthController::class, 'register']);
     Route::get('items', [TodoItemController::class, 'index']);
-    Route::post('items', [TodoItemController::class, 'create']);
+    Route::post('item', [TodoItemController::class, 'create']);
     Route::put('item/{id}', [TodoItemController::class, 'update']);
     Route::delete('item/{id}', [TodoItemController::class, 'delete']);
     Route::get('item/{id}', [TodoItemController::class, 'singleItem']);

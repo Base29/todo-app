@@ -31,8 +31,8 @@
             v-model="credentials.password_confirmation"
           />
         </div>
-        <button class="btn btn-primary" @click.prevent="register">
-          Register
+        <button class="btn btn-primary btn-block" @click.prevent="register">
+          REGISTER
         </button>
       </form>
     </div>
@@ -105,10 +105,5 @@ export default {
 
 .register h2 {
   margin-bottom: 20px;
-}
-
-button {
-  display: block;
-  margin: 0 auto;
 }
 </style>

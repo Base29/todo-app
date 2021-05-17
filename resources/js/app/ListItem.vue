@@ -1,10 +1,12 @@
 <template>
   <div class="item-container">
     <div class="item-data">
+      <span class="label">Title: </span>
       <span :class="[item.completed ? 'completed' : '', 'itemText']">{{
         item.title
       }}</span>
       <br />
+      <span class="label">Description: </span>
       <span :class="[item.completed ? 'completed' : '', 'itemText']">{{
         item.description
       }}</span>
@@ -54,11 +56,19 @@ export default {
     }
   },
   methods: {
-    updateCheck() {
+    markDone() {
+      const itemId = this.item.id;
+      const endpoint = `${API_URL}/done/${itemId}`;
+      const header = {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.token}`,
+        },
+      };
+      const data = {
+        item: this.item,
+      };
       axios
-        .put("api/item/" + this.item.id, {
-          item: this.item,
-        })
+        .put(endpoint, data, header)
         .then((response) => {
           if (response.status === 200) {
             this.$emit("itemchanged");
@@ -70,9 +80,15 @@ export default {
     },
 
     removeItem() {
-      console.log("ITEM", this.item.id);
+      const itemId = this.item.id;
+      const endpoint = `${API_URL}/item/${itemId}`;
+      const header = {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.token}`,
+        },
+      };
       axios
-        .delete("api/item/" + this.item.id)
+        .delete(endpoint, header)
         .then((response) => {
           if (response.status === 200) {
             this.$emit("itemchanged");
@@ -106,12 +122,6 @@ export default {
   padding: 10px;
 }
 
-/* .item-container div {
-  display: inline-block;
-  font-size: 20px;
-  background-color: #fff;
-} */
-
 .item-data {
   width: 80%;
 }
@@ -120,17 +130,8 @@ export default {
   display: flex;
   justify-content: flex-end;
   width: 20%;
-  background-color: aqua;
   align-items: center;
 }
-
-/* .del-btn {
-  float: right;
-}
-
-.edit {
-  float: right;
-} */
 
 .trashcan {
   background: none;
@@ -146,5 +147,9 @@ export default {
   color: blue;
   outline: none;
   font-size: 20px;
+}
+
+.label {
+  font-weight: bold;
 }
 </style>

@@ -5,17 +5,19 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div class="update-item" v-else>
-      <h2>Edit Item</h2>
+    <div class="add-item" v-else>
+      <h2>Add Item</h2>
       <form class="form">
         <div class="form-group">
+          <label for="title">Title</label>
           <input class="form-control" v-model="title" />
         </div>
         <div class="form-group">
+          <label for="title">Description</label>
           <input class="form-control" v-model="description" />
         </div>
-        <button class="btn btn-primary btn-block" @click.prevent="update">
-          UPDATE
+        <button class="btn btn-primary btn-block" @click.prevent="add">
+          ADD
         </button>
       </form>
     </div>
@@ -25,7 +27,7 @@
 <script>
 import API_URL from "./config";
 export default {
-  name: "EditItem",
+  name: "AddItem",
   data() {
     return {
       title: "",
@@ -40,9 +42,9 @@ export default {
         .post(endpoint, { token: this.$store.state.token })
         .then((res) => {
           this.loading = false;
-          this.getItemData();
         })
         .catch((err) => {
+          console.log("ERR TOKEN VERIFICATION", err);
           this.loading = false;
           this.$store.commit("clearToken");
           this.$router.push("/login");
@@ -53,27 +55,8 @@ export default {
     }
   },
   methods: {
-    getItemData() {
-      const itemId = this.$route.params.itemId;
-      const endpoint = `${API_URL}/item/${itemId}`;
-      axios
-        .get(endpoint, {
-          headers: {
-            Authorization: `Bearer ${this.$store.state.token}`,
-          },
-        })
-        .then((response) => {
-          if (response.data.success) {
-            const { title, description } = response.data.item;
-            this.title = title;
-            this.description = description;
-          }
-        })
-        .catch((err) => console.log("SINGLE ITEM GET ERROR", err));
-    },
-    update() {
-      const itemId = this.$route.params.itemId;
-      const endpoint = `${API_URL}/item/${itemId}`;
+    add() {
+      const endpoint = `${API_URL}/item`;
       const data = {
         title: this.title,
         description: this.description,
@@ -84,20 +67,21 @@ export default {
         },
       };
       axios
-        .put(endpoint, data, header)
+        .post(endpoint, data, header)
         .then((response) => {
           if (response.data.success) {
+            console.log("ITEM ADDED", response.data);
             this.$router.push("/dashboard");
           }
         })
-        .catch((err) => console.log("UPDATE ERROR", err));
+        .catch((err) => console.log("ADD ERROR", err));
     },
   },
 };
 </script>
 
 <style>
-.update-item {
+.add-item {
   background-color: #fff;
   border: 1px solid #eee;
   padding: 10px;
@@ -106,7 +90,7 @@ export default {
   height: 70%;
 }
 
-.update-item h2 {
+.add-item h2 {
   margin-bottom: 20px;
 }
 </style>
