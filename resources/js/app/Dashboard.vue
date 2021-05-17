@@ -6,7 +6,12 @@
       </div>
     </div>
     <div v-else>
-      <list-view :items="items" v-on:reloadlist="getList()" />
+      <div v-if="this.items.length > 0">
+        <list-view :items="items" v-on:reloadlist="getList()" />
+      </div>
+      <div v-else>
+        <h2>No Items</h2>
+      </div>
     </div>
   </div>
 </template>

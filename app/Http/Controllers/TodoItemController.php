@@ -166,13 +166,10 @@ class TodoItemController extends Controller
         }
 
         // Updating completed and completed_at fields
-        $item->completed = true;
-        $item->completed_at = Carbon::now();
-        $item->save();
+        $item->update(['completed' => $request->done, 'completed_at' => Carbon::now()]);
 
         return response([
             'success' => true,
-            'message' => 'Item marked as done',
             'item' => $item,
         ]);
     }

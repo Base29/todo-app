@@ -24,7 +24,7 @@
         <button
           :class="this.done ? 'editpen-disabled' : 'editpen'"
           @click="editItem()"
-          :disabled="this.done"
+          :disabled="isDisabled"
         >
           <font-awesome-icon icon="pen-square" />
         </button>
@@ -46,6 +46,11 @@ export default {
     return {
       done: this.item.completed,
     };
+  },
+  computed: {
+    isDisabled: function () {
+      return !!this.item.completed;
+    },
   },
   mounted() {
     if (this.$store.state.token !== "") {
