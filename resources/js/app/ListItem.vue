@@ -10,12 +10,17 @@
       }}</span>
     </div>
     <div class="action-container">
-      <div class="chkBox">
+      <!-- <div class="chkBox">
         <input
           type="checkbox"
           @change="updateCheck()"
           v-model="item.completed"
         />
+      </div> -->
+      <div class="edit-btn">
+        <button class="editpen">
+          <font-awesome-icon icon="pen-square" />
+        </button>
       </div>
       <div class="del-btn">
         <button @click="removeItem()" class="trashcan">
@@ -67,41 +72,55 @@ export default {
 
 .itemText {
   width: 100%;
-  margin-left: 20px;
 }
 
 .item-container {
-  width: 50%;
-  margin: 20px 0 20px 0;
-  /* padding: 0; */
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 20px 0;
+  background-color: #fff;
+  padding: 10px;
 }
 
-.item-container div {
+/* .item-container div {
   display: inline-block;
   font-size: 20px;
-}
+  background-color: #fff;
+} */
 
 .item-data {
   width: 80%;
-  background-color: aqua;
 }
 
 .action-container {
-  background-color: brown;
-  float: right;
+  display: flex;
+  justify-content: flex-end;
   width: 20%;
-  justify-content: end;
+  background-color: aqua;
+  align-items: center;
 }
 
-.del-btn {
-  background-color: blue;
+/* .del-btn {
+  float: right;
 }
+
+.edit {
+  float: right;
+} */
 
 .trashcan {
-  background: #e6e6e6;
+  background: none;
   border: none;
   color: red;
   outline: none;
-  align-self: flex-end;
+  font-size: 20px;
+}
+
+.editpen {
+  background: none;
+  border: none;
+  color: blue;
+  outline: none;
+  font-size: 20px;
 }
 </style>

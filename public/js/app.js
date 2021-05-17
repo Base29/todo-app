@@ -12344,6 +12344,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ListItem",
   props: ["item"],
@@ -12404,7 +12409,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faPlusSquare, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faTrash);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faPlusSquare, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faTrash, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faEdit, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__.faPenSquare);
 vue__WEBPACK_IMPORTED_MODULE_6__.default.component("font-awesome-icon", _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_4__.FontAwesomeIcon);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_7__.default({
   routes: _app_routes__WEBPACK_IMPORTED_MODULE_1__.routes,
@@ -17029,7 +17034,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .item {\n        background: #e6e6e6;\n        padding: 5px;\n        margin-top: 5px;\n    } */\n.container {\n  margin-right: 0;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container {\n  background-color: #ececec;\n  height: 500px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17101,7 +17106,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.completed[data-v-e13ec606] {\n  text-decoration: line-through;\n  color: #999999;\n}\n.itemText[data-v-e13ec606] {\n  width: 100%;\n  margin-left: 20px;\n}\n.item-container[data-v-e13ec606] {\n  width: 50%;\n  margin: 20px 0 20px 0;\n  /* padding: 0; */\n}\n.item-container div[data-v-e13ec606] {\n  display: inline-block;\n  font-size: 20px;\n}\n.item-data[data-v-e13ec606] {\n  width: 80%;\n  background-color: aqua;\n}\n.action-container[data-v-e13ec606] {\n  background-color: brown;\n  float: right;\n  width: 20%;\n  justify-content: end;\n}\n.del-btn[data-v-e13ec606] {\n  background-color: blue;\n}\n.trashcan[data-v-e13ec606] {\n  background: #e6e6e6;\n  border: none;\n  color: red;\n  outline: none;\n  align-self: flex-end;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.completed[data-v-e13ec606] {\n  text-decoration: line-through;\n  color: #999999;\n}\n.itemText[data-v-e13ec606] {\n  width: 100%;\n}\n.item-container[data-v-e13ec606] {\n  display: flex;\n  flex-direction: row;\n  margin: 0 0 20px 0;\n  background-color: #fff;\n  /* padding: 0; */\n}\n\n/* .item-container div {\n  display: inline-block;\n  font-size: 20px;\n  background-color: #fff;\n} */\n.item-data[data-v-e13ec606] {\n  width: 80%;\n}\n.action-container[data-v-e13ec606] {\n  display: flex;\n  justify-content: flex-end;\n  width: 20%;\n  background-color: aqua;\n  align-items: center;\n}\n\n/* .del-btn {\n  float: right;\n}\n\n.edit {\n  float: right;\n} */\n.trashcan[data-v-e13ec606] {\n  background: none;\n  border: none;\n  color: red;\n  outline: none;\n  font-size: 20px;\n}\n.editpen[data-v-e13ec606] {\n  background: none;\n  border: none;\n  color: blue;\n  outline: none;\n  font-size: 20px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -48899,7 +48904,6 @@ var render = function() {
         { key: index },
         [
           _c("list-item", {
-            staticClass: "item",
             attrs: { item: item },
             on: {
               itemchanged: function($event) {
@@ -49195,52 +49199,13 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "action-container" }, [
-      _c("div", { staticClass: "chkBox" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.item.completed,
-              expression: "item.completed"
-            }
-          ],
-          attrs: { type: "checkbox" },
-          domProps: {
-            checked: Array.isArray(_vm.item.completed)
-              ? _vm._i(_vm.item.completed, null) > -1
-              : _vm.item.completed
-          },
-          on: {
-            change: [
-              function($event) {
-                var $$a = _vm.item.completed,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.item, "completed", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.item,
-                        "completed",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.item, "completed", $$c)
-                }
-              },
-              function($event) {
-                return _vm.updateCheck()
-              }
-            ]
-          }
-        })
+      _c("div", { staticClass: "edit-btn" }, [
+        _c(
+          "button",
+          { staticClass: "editpen" },
+          [_c("font-awesome-icon", { attrs: { icon: "pen-square" } })],
+          1
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "del-btn" }, [
