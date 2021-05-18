@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -20,7 +21,21 @@ class AuthController extends Controller
     // Login
     public function login(Request $request)
     {
-        // Validating request
+
+        // Validating incoming request params
+        $validateCreds = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required',
+        ]);
+
+        if ($validateCreds->fails()) {
+            return response([
+                'success' => false,
+                'error' => $validateCreds->errors()->all(),
+            ], 422);
+        }
+
+        // Creds for login
         $creds = $request->only('email', 'password');
 
         // Generating JWT token from provided creds
@@ -28,6 +43,7 @@ class AuthController extends Controller
         if (!$token) {
             return response([
                 'success' => false,
+                'message' => 'Invalid Credentials',
             ], 401);
         }
 
@@ -45,16 +61,24 @@ class AuthController extends Controller
     // Register
     public function register(Request $request)
     {
-        // Validating request
-        $creds = $request->validate([
+
+        // Validating incoming request params
+        $validateCreds = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
         ]);
 
+        if ($validateCreds->fails()) {
+            return response([
+                'success' => false,
+                'error' => $validateCreds->errors()->all(),
+            ], 422);
+        }
+
         // Creating new user in database
         $user = User::create([
-            'email' => $creds['email'],
-            'password' => Hash::make($creds['password']),
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
         return response([

@@ -13,6 +13,8 @@ import {
     faCheckSquare
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Vuelidate from "vuelidate";
+Vue.use(Vuelidate);
 
 library.add(faPlusSquare, faTrash, faEdit, faPenSquare, faCheckSquare);
 

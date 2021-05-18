@@ -7,6 +7,9 @@
     </div>
     <div class="login" v-else>
       <h2>Login</h2>
+      <span class="text-danger" v-if="this.error.length > 0">{{
+        this.error[0]
+      }}</span>
       <form class="form">
         <div class="form-group">
           <input
@@ -14,6 +17,14 @@
             placeholder="Email"
             v-model="credentials.email"
           />
+          <span
+            class="text-danger"
+            v-if="
+              (!$v.credentials.email.required || !$v.credentials.email.email) &&
+              $v.credentials.email.$dirty
+            "
+            >Valid email is required</span
+          >
         </div>
         <div class="form-group">
           <input
@@ -22,6 +33,14 @@
             type="password"
             v-model="credentials.password"
           />
+          <span
+            class="text-danger"
+            v-if="
+              !$v.credentials.password.required &&
+              $v.credentials.password.$dirty
+            "
+            >Password is required</span
+          >
         </div>
         <button class="btn btn-primary btn-block" @click.prevent="login">
           LOGIN
@@ -34,16 +53,29 @@
 <script>
 import axios from "axios";
 import API_URL from "./config";
+import { required, email } from "vuelidate/lib/validators";
 export default {
   name: "Login",
-  data() {
+  data: () => {
     return {
       credentials: {
         email: "",
         password: "",
       },
       loading: true,
+      error: [],
     };
+  },
+  validations: {
+    credentials: {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+      },
+    },
   },
   mounted() {
     this.$store.commit("setCurrentRoute", this.$router.currentRoute.name);
@@ -68,19 +100,27 @@ export default {
   },
   methods: {
     login() {
-      const endpoint = `${API_URL}/login`;
-      axios
-        .post(endpoint, this.credentials)
-        .then((res) => {
-          if (res.data.success) {
-            // Update the store
-            this.$store.commit("setToken", res.data.user.token);
-            this.$router
-              .push("/dashboard")
-              .catch((err) => console.log("ROUTER ERROR", err));
-          }
-        })
-        .catch((err) => console.log("LOGIN ERROR", err));
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        const endpoint = `${API_URL}/login`;
+        axios
+          .post(endpoint, this.credentials)
+          .then((res) => {
+            if (res.data.success) {
+              // Update the store
+              this.$store.commit("setToken", res.data.user.token);
+              this.$router
+                .push("/dashboard")
+                .catch((err) => console.log("ROUTER ERROR", err));
+            }
+          })
+          .catch((err) => {
+            const { success, error } = err.response.data;
+            if (!success) {
+              this.error.push(error[0]);
+            }
+          });
+      }
     },
   },
 };
