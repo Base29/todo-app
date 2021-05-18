@@ -16,6 +16,7 @@
         <button
           :class="[this.item.completed ? 'chkBox-done' : 'chkBox']"
           @click="markDone()"
+          :disabled="isDisabled"
         >
           <font-awesome-icon icon="check-square" />
         </button>
