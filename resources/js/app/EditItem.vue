@@ -17,6 +17,12 @@
         <button class="btn btn-primary btn-block" @click.prevent="update">
           UPDATE
         </button>
+        <button
+          class="btn btn-danger btn-block"
+          @click.prevent="backToDashboard"
+        >
+          CANCEL
+        </button>
       </form>
     </div>
   </div>
@@ -91,6 +97,9 @@ export default {
           }
         })
         .catch((err) => console.log("UPDATE ERROR", err));
+    },
+    backToDashboard() {
+      this.$router.back();
     },
   },
 };

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="loading">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+    <loading v-if="loading"></loading>
     <div class="register" v-else>
       <h2>Register</h2>
       <span class="text-danger" v-if="this.error.length > 0">{{
@@ -75,8 +71,12 @@
 import axios from "axios";
 import API_URL from "./config";
 import { required, email, sameAs } from "vuelidate/lib/validators";
+import Loading from "./Loading";
 export default {
   name: "Register",
+  components: {
+    Loading,
+  },
   data: () => {
     return {
       credentials: {

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="loading">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+    <loading v-if="loading"></loading>
     <div v-else>
       <div v-if="this.items.length > 0">
         <list-view :items="items" v-on:reloadlist="getList()" />
@@ -20,10 +16,12 @@
 import axios from "axios";
 import ListView from "./ListView";
 import API_URL from "./config";
+import Loading from "./Loading";
 export default {
   name: "Dashboard",
   components: {
     ListView,
+    Loading,
   },
   data() {
     return {
