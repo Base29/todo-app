@@ -3,6 +3,7 @@
         <div v-for="(item, index) in items" :key="index">
             <list-item :item="item" v-on:itemchanged="$emit('reloadlist')" />
         </div>
+        <div v-if="items.length" v-observe-visibility="handleInfiniteScroll"></div>
     </div>
 </template>
 <script>
@@ -14,23 +15,19 @@ export default {
   components: {
     ListItem,
   },
-  mounted() {
-    if (this.$store.state.token !== "") {
-      const endpoint = `${API_URL}/checktoken`;
-      axios
-        .post(endpoint, { token: this.$store.state.token })
-        .then((res) => {
-          this.loading = false;
-        })
-        .catch((err) => {
-          this.loading = false;
-          this.$store.commit("clearToken");
-          this.$router.push("/login");
-        });
-    } else {
-      this.$router.push("/login");
-      this.loading = false;
-    }
+  data() {
+    return {
+      page: 1,
+    };
+  },
+  methods: {
+    handleInfiniteScroll(isVisible) {
+      if (!isVisible) {
+        return;
+      }
+      this.page++;
+      this.$emit("refetch", this.page);
+    },
   },
 };
 </script>
@@ -39,6 +36,6 @@ export default {
   background-color: #ececec;
   min-height: 200px;
   padding-top: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 </style>

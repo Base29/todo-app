@@ -20,7 +20,7 @@ class TodoItemController extends Controller
         $user = auth()->user();
 
         // Get Todo items of the user
-        $items = TodoItem::latest()->where('user_id', $user->id)->get();
+        $items = TodoItem::latest()->where('user_id', $user->id)->paginate(10);
 
         return response([
             'success' => true,

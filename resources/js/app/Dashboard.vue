@@ -3,7 +3,11 @@
     <loading v-if="loading"></loading>
     <div v-else>
       <div v-if="this.items.length > 0">
-        <list-view :items="items" v-on:reloadlist="getList()" />
+        <list-view
+          :items="items"
+          v-on:reloadlist="getList()"
+          @refetch="getList"
+        />
       </div>
       <div class="no-items" v-else>
         <h2>No Items</h2>
@@ -27,6 +31,7 @@ export default {
     return {
       loading: true,
       items: [],
+      lastPage: 1,
     };
   },
   mounted() {
@@ -48,24 +53,33 @@ export default {
     }
   },
   methods: {
-    getList() {
-      const endpoint = `${API_URL}/items`;
-      axios
+    async getList(page) {
+      if (page > this.lastPage) {
+        return;
+      }
+      console.log("PAGE", page);
+      console.log("LAST PAGE", this.lastPage);
+
+      const endpoint = `${API_URL}/items?page=${page}`;
+      await axios
         .get(endpoint, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           },
         })
         .then((response) => {
+          console.log("response", response);
           if (response.data.success) {
-            this.items = response.data.items;
+            const { items } = response.data;
+            this.items.push(...items.data);
+            this.lastPage = items.last_page;
           }
         })
         .catch((error) => console.log("error".error));
     },
   },
   created() {
-    this.getList();
+    this.getList(1);
   },
 };
 </script>
