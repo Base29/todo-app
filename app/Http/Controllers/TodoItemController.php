@@ -14,13 +14,21 @@ class TodoItemController extends Controller
     }
 
     // Fetch items from database
-    public function index()
+    public function index(Request $request)
     {
         // Authenticated user
         $user = auth()->user();
 
-        // Get Todo items of the user
-        $items = TodoItem::latest()->where('user_id', $user->id)->paginate(10);
+        ray($request->all());
+
+        if ($request->q !== null & $request->q !== '') {
+            $items = TodoItem::latest()->where('title', 'like', '%' . $request->q . '%')
+                ->where('user_id', $user->id)
+                ->paginate(10);
+        } else {
+            // Get Todo items of the user
+            $items = TodoItem::latest()->where('user_id', $user->id)->paginate(10);
+        }
 
         return response([
             'success' => true,

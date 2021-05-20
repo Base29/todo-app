@@ -53,14 +53,14 @@ export default {
     }
   },
   methods: {
-    async getList(page) {
+    async getList(page, query) {
       if (page > this.lastPage) {
         return;
       }
       console.log("PAGE", page);
       console.log("LAST PAGE", this.lastPage);
 
-      const endpoint = `${API_URL}/items?page=${page}`;
+      const endpoint = `${API_URL}/items?page=${page}&q=${query}`;
       await axios
         .get(endpoint, {
           headers: {

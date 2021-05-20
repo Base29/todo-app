@@ -2,8 +2,16 @@
     <div>
         <nav class="navbar navbar-dark bg-dark">
             <div class='logout' v-if="this.$store.state.token !== ''">
-                <button class="btn btn-info" @click="navigateToAddItem">Add Item</button>
-                <button class="btn btn-danger" @click="logout">Logout</button>
+                <div class="search-container">
+                  <form class="form-inline my-2 my-lg-0">
+                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+                <div class="action-buttons">
+                  <button class="btn btn-info mr-3" @click="navigateToAddItem">Add Item</button>
+                  <button class="btn btn-danger" @click="logout">Logout</button>
+                </div>
             </div>
             <div class='register' v-if="this.$store.state.token === ''">
                 <div v-if="this.$store.state.currentRoute === 'Login'">
@@ -72,7 +80,7 @@ export default {
 </script>
 <style scoped>
 .navbar {
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   height: 70px;
 }
 
@@ -82,7 +90,10 @@ export default {
 }
 
 .logout {
-  align-self: flex-end;
+  /* align-self: flex-end; */
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .register {
@@ -92,5 +103,14 @@ export default {
 .links {
   display: flex;
   align-self: flex-start;
+}
+.search-container {
+  width: 50%;
+}
+
+.action-buttons {
+  display: flex;
+  width: 50%;
+  justify-content: flex-end;
 }
 </style>
