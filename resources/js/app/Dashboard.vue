@@ -65,9 +65,6 @@ export default {
         })
         .then((response) => {
           if (response.data.success) {
-            // Resetting items array in order to avoid duplicate records in the list
-            this.items = [];
-
             const { items } = response.data;
 
             // Pushing items to array
