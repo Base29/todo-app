@@ -29,6 +29,7 @@ class AuthController extends Controller
         ]);
 
         if ($validateCreds->fails()) {
+            ray('Failed');
             return response([
                 'success' => false,
                 'error' => $validateCreds->errors()->all(),

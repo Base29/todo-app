@@ -115,9 +115,15 @@ export default {
             }
           })
           .catch((err) => {
-            const { success, error } = err.response.data;
+            const { success, error, message } = err.response.data;
             if (!success) {
-              this.error.push(error[0]);
+              if (message) {
+                this.error = [];
+                this.error.push(message);
+              } else {
+                this.error = [];
+                this.error.push(error[0]);
+              }
             }
           });
       }
