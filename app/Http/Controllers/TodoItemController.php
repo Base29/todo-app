@@ -19,8 +19,6 @@ class TodoItemController extends Controller
         // Authenticated user
         $user = auth()->user();
 
-        ray($request->all());
-
         if ($request->q !== null & $request->q !== '') {
             $items = TodoItem::latest()->where('title', 'like', '%' . $request->q . '%')
                 ->where('user_id', $user->id)
