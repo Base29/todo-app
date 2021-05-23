@@ -3,11 +3,7 @@
     <loading v-if="loading"></loading>
     <div v-else>
       <div v-if="this.items.length > 0">
-        <list-view
-          :items="items"
-          v-on:reloadlist="getList()"
-          @refetch="getList"
-        />
+        <list-view :items="items" @refetch="getList" />
       </div>
       <div class="no-items" v-else>
         <h2>No Items</h2>
@@ -57,8 +53,6 @@ export default {
       if (page > this.lastPage) {
         return;
       }
-      console.log("PAGE", page);
-      console.log("LAST PAGE", this.lastPage);
 
       const searchParam = query === undefined ? "" : query;
       const endpoint = `${API_URL}/items?page=${page}&q=${searchParam}`;
@@ -69,10 +63,16 @@ export default {
           },
         })
         .then((response) => {
-          console.log("response", response);
           if (response.data.success) {
+            // Resetting items array in order to avoid duplicate records in the list
+            this.items = [];
+
             const { items } = response.data;
+
+            // Pushing items to array
             this.items.push(...items.data);
+
+            // Setting last page
             this.lastPage = items.last_page;
           }
         })

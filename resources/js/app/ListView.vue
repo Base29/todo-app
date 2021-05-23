@@ -1,7 +1,7 @@
 <template lang="">
     <div class="container">
         <div v-for="(item, index) in items" :key="index">
-            <list-item :item="item" v-on:itemchanged="$emit('reloadlist')" />
+            <list-item :item="item" v-on:itemchanged="$emit('refetch', 1, '')" />
         </div>
         <div v-if="items.length" v-observe-visibility="handleInfiniteScroll"></div>
     </div>

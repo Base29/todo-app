@@ -4,8 +4,8 @@
             <div class='logout' v-if="this.$store.state.token !== ''">
                 <div class="search-container">
                   <form class="form-inline my-2 my-lg-0">
-                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="searchTerm">
+                          <button class="btn btn-outline-success my-2 my-sm-0" @click.prevent="search">Search</button>
                     </form>
                 </div>
                 <div class="action-buttons">
@@ -30,6 +30,11 @@
 import axios from "axios";
 export default {
   name: "App",
+  data() {
+    return {
+      searchTerm: "",
+    };
+  },
   mounted() {
     if (this.$store.state.token !== "") {
       axios
@@ -74,6 +79,10 @@ export default {
     },
     navigateToLogin() {
       this.$router.push("/login");
+    },
+    search() {
+      console.log("SEARCH", this.searchTerm);
+      this.$emit("refetch", 1, this.searchTerm);
     },
   },
 };
