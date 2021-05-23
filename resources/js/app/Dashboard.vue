@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="dashboard">
     <loading v-if="loading"></loading>
     <div v-else>
       <div v-if="this.items.length > 0">
@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     async getList(page, query) {
+      console.log("CALLED");
       if (page > this.lastPage) {
         return;
       }
@@ -81,6 +82,7 @@ export default {
   },
   created() {
     this.getList(1);
+    this.$root.$refs.Dashboard = this;
   },
 };
 </script>

@@ -1,11 +1,12 @@
 <template lang="">
     <div>
         <nav class="navbar navbar-dark bg-dark">
-            <div class='logout' v-if="this.$store.state.token !== ''">
+            <div class='action-btn-container' v-if="this.$store.state.token !== ''">
                 <div class="search-container">
                   <form class="form-inline my-2 my-lg-0">
-                          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="searchTerm">
+                          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" v-model="searchTerm">
                           <button class="btn btn-outline-success my-2 my-sm-0" @click.prevent="search">Search</button>
+                          <button type="button" class="btn btn-outline-danger my-2 my-sm-0 ml-2" @click.prevent="clearSearch" :disabled="searchTerm === ''">Clear</button>
                     </form>
                 </div>
                 <div class="action-buttons">
@@ -81,8 +82,11 @@ export default {
       this.$router.push("/login");
     },
     search() {
-      console.log("SEARCH", this.searchTerm);
-      this.$emit("refetch", 1, this.searchTerm);
+      this.$root.$refs.Dashboard.getList(1, this.searchTerm);
+    },
+    clearSearch() {
+      this.searchTerm = "";
+      this.$root.$refs.Dashboard.getList(1, this.searchTerm);
     },
   },
 };
@@ -98,8 +102,7 @@ export default {
   margin: 5px 5px;
 }
 
-.logout {
-  /* align-self: flex-end; */
+.action-btn-container {
   display: flex;
   flex-direction: row;
   width: 100%;
