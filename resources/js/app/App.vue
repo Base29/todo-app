@@ -109,7 +109,9 @@ export default {
 }
 
 .register {
-  align-self: flex-end;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
 .links {
