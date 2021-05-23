@@ -60,7 +60,8 @@ export default {
       console.log("PAGE", page);
       console.log("LAST PAGE", this.lastPage);
 
-      const endpoint = `${API_URL}/items?page=${page}&q=${query}`;
+      const searchParam = query === undefined ? "" : query;
+      const endpoint = `${API_URL}/items?page=${page}&q=${searchParam}`;
       await axios
         .get(endpoint, {
           headers: {
