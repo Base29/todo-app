@@ -11,7 +11,8 @@ import {
     faPenSquare,
     faEdit,
     faCheckSquare,
-    faBars
+    faBars,
+    faHome
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vuelidate from "vuelidate";
@@ -20,7 +21,15 @@ import VueObserveVisibility from "vue-observe-visibility";
 Vue.use(VueObserveVisibility);
 Vue.use(Vuelidate);
 
-library.add(faPlusSquare, faTrash, faEdit, faPenSquare, faCheckSquare, faBars);
+library.add(
+    faPlusSquare,
+    faTrash,
+    faEdit,
+    faPenSquare,
+    faCheckSquare,
+    faBars,
+    faHome
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

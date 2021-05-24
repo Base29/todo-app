@@ -15,13 +15,19 @@
                 </div>
             </div>
             <div class='register' v-if="this.$store.state.token === ''">
+              <div class="home-container" v-if="this.$store.state.currentRoute === 'Login' || this.$store.state.currentRoute === 'Register'">
+                <button class="home" @click="navigateToWelcome">
+                  <font-awesome-icon icon="home" />
+                </button>
+              </div>
+              <div class="auth-button-container">
                 <div v-if="this.$store.state.currentRoute === 'Login'">
                     <button class="btn btn-warning" @click="navigateToRegister">REGISTER</button>
                 </div>
                 <div v-if="this.$store.state.currentRoute === 'Register'">
                     <button class="btn btn-warning" @click="navigateToLogin">LOGIN</button>
                 </div>
-                
+              </div>
             </div>
         </nav>
         <router-view></router-view>
@@ -50,12 +56,12 @@ export default {
         .catch((err) => {
           this.$store.commit("clearToken");
           this.$router
-            .push("/login")
+            .push("/")
             .catch((err) => console.log("ROUTER ERROR", err));
         });
     } else {
       this.$store.commit("clearToken");
-      this.$router.push("/login");
+      this.$router.push("/");
     }
   },
   methods: {
@@ -66,7 +72,7 @@ export default {
           if (res.data.success) {
             this.$store.commit("clearToken");
             this.$router
-              .push("/login")
+              .push("/")
               .catch((err) => console.log("ROUTER ERROR", err));
           }
         })
@@ -88,6 +94,9 @@ export default {
       this.searchTerm = "";
       this.$root.$refs.Dashboard.getList(1, this.searchTerm, true);
     },
+    navigateToWelcome() {
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -98,8 +107,8 @@ export default {
 }
 
 .navbar div {
-  padding: 1px 20px;
-  margin: 5px 5px;
+  padding: 2px 20px;
+  margin: 1px 5px;
 }
 
 .action-btn-container {
@@ -111,13 +120,8 @@ export default {
 .register {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
 }
 
-.links {
-  display: flex;
-  align-self: flex-start;
-}
 .search-container {
   width: 50%;
 }
@@ -126,5 +130,23 @@ export default {
   display: flex;
   width: 50%;
   justify-content: flex-end;
+}
+
+.home-container {
+  width: 30%;
+}
+
+.auth-button-container {
+  display: flex;
+  width: 70%;
+  justify-content: flex-end;
+}
+
+.home {
+  background: none;
+  border: none;
+  color: #ffffff;
+  outline: none;
+  font-size: 25px;
 }
 </style>

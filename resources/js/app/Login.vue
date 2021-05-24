@@ -92,10 +92,12 @@ export default {
         .catch((err) => {
           console.log("TOKEN VALIDATION ERROR", err);
           this.loading = false;
+          this.$router.push("/login");
           this.$store.commit("clearToken");
         });
     } else {
       this.loading = false;
+      this.$router.push("/login");
     }
   },
   methods: {
