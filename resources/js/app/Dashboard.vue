@@ -49,14 +49,17 @@ export default {
     }
   },
   methods: {
-    async getList(page, query) {
-      console.log("CALLED");
+    async getList(page, query, isReset) {
       if (page > this.lastPage) {
         return;
       }
 
       const searchParam = query === undefined ? "" : query;
       const endpoint = `${API_URL}/items?page=${page}&q=${searchParam}`;
+
+      if (isReset !== undefined) {
+        this.items = [];
+      }
       await axios
         .get(endpoint, {
           headers: {
@@ -74,7 +77,7 @@ export default {
             this.lastPage = items.last_page;
           }
         })
-        .catch((error) => console.log("error".error));
+        .catch((err) => console.log("error", err));
     },
   },
   created() {

@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     editItem() {
-      console.log("EDIT ITEM", this.item.id);
       const itemId = this.item.id;
       const isCompleted = this.item.completed;
       this.$router.push({ name: "Edit", params: { itemId, isCompleted } });

@@ -95,7 +95,6 @@ export default {
           .post(endpoint, data, header)
           .then((response) => {
             if (response.data.success) {
-              console.log("ITEM ADDED", response.data);
               this.$router.push("/dashboard");
             }
           })

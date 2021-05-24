@@ -82,11 +82,11 @@ export default {
       this.$router.push("/login");
     },
     search() {
-      this.$root.$refs.Dashboard.getList(1, this.searchTerm);
+      this.$root.$refs.Dashboard.getList(1, this.searchTerm, true);
     },
     clearSearch() {
       this.searchTerm = "";
-      this.$root.$refs.Dashboard.getList(1, this.searchTerm);
+      this.$root.$refs.Dashboard.getList(1, this.searchTerm, true);
     },
   },
 };

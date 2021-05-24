@@ -133,12 +133,11 @@ export default {
         .put(endpoint, data, header)
         .then((response) => {
           if (response.data.success) {
-            console.log("MARK DONE RES", response.data);
             this.$router.push("/dashboard");
           }
         })
-        .catch((error) => {
-          console.log("error".error);
+        .catch((err) => {
+          console.log("error", err);
         });
     },
 
@@ -157,7 +156,7 @@ export default {
             this.$router.push("/dashboard");
           }
         })
-        .catch((error) => console.log("error".error));
+        .catch((err) => console.log("error", err));
     },
   },
 };

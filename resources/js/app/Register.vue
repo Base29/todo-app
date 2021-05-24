@@ -139,7 +139,6 @@ export default {
             }
           })
           .catch((err) => {
-            console.log(err.response);
             const { success, error } = err.response.data;
             if (!success) {
               this.error.push(error[0]);
