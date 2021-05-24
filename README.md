@@ -7,56 +7,78 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+A simple Todo application developed using Laravel 8.x and VueJS. This application demostrates CRUD operations.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Instructions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+In order to run the application locally and test it, you need to follow the deployment steps mentioned below.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Step 1
 
-## Learning Laravel
+Clone the repo to your local machine.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+$ git clone https://github.com/Base29/todo-app.git
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Step 2
 
-## Laravel Sponsors
+Rename `.env.example` file to `.env` in the projects root folder.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```bash
+$ mv .env.example .env
+```
 
-### Premium Partners
+## Step 3
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+Add database credentials in to the `.env` file. I have used `PostgreSQL` but you can also use `MySQL/MariaDB`.
 
-## Contributing
+## Step 4
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Run migrations.
 
-## Code of Conduct
+```bash
+$ php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Step 5
 
-## Security Vulnerabilities
+Generate JWT secret key.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+$ php artisan jwt:secret
+```
 
-## License
+## Step 6
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Install JS libraries by running
+
+```bash
+$ npm install
+```
+
+## Step 7
+
+Fire up the application by running the development server.
+
+```bash
+$ php artisan serve
+```
+
+AND
+
+```bash
+$ npm run dev
+```
+
+Access the application at <http://localhost:8000>
+
+## Optional
+
+To generate bulk todo items please run the following command.
+
+```bash
+$ php artisan db:seed --class=TodoItemSeeder
+```
+
+Above command will seed the `todo_items` table with 40 records, Which can be used to test out infinite loading feature.
