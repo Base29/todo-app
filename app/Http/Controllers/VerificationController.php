@@ -10,31 +10,11 @@ class VerificationController extends Controller
 {
     public function verify(Request $request)
     {
-        // if (!$request->hasValidSignature()) {
-        //     return response([
-        //         'success' => false,
-        //         'message' => 'Invalid Signature',
-        //     ], 253);
-        // }
 
-        // $user = User::findOrFail($user_id);
-
-        // if (!$user->hasVerifiedEmail()) {
-        //     $user->markEmailAsVerified();
-        // }
-
-        // return response([
-        //     'success' => true,
-        //     'message' => 'Email Verified',
-        // ]);
-        ray($request->all());
+        // Checking if the user exists
         $user = User::findOrFail($request->id);
 
-        // do this check, only if you allow unverified user to login
-        //        if (! hash_equals((string) $request->id, (string) $request->user()->getKey())) {
-        //            throw new AuthorizationException;
-        //        }
-
+        // Checking if the hash token is valid
         if (!hash_equals((string) $request->hash, sha1($user->getEmailForVerification()))) {
             return response()->json([
                 'success' => false,
@@ -42,6 +22,7 @@ class VerificationController extends Controller
             ]);
         }
 
+        // Checking if the user email is already verified
         if ($user->hasVerifiedEmail()) {
             return response()->json([
                 'success' => false,
@@ -49,6 +30,7 @@ class VerificationController extends Controller
             ]);
         }
 
+        // Verifying user email
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
