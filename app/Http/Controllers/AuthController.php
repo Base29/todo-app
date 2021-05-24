@@ -80,11 +80,11 @@ class AuthController extends Controller
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
+        ])->sendEmailVerificationNotification();
 
         return response([
             'success' => true,
-            'user' => $user,
+            'message' => 'User Registration successfull',
         ]);
     }
 
