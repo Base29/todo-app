@@ -29,6 +29,12 @@ Rename `.env.example` file to `.env` in the projects root folder.
 $ mv .env.example .env
 ```
 
+OR
+
+```bash
+$ cp .env.example .env
+```
+
 ## Step 3
 
 Add database credentials in to the `.env` file. I have used `PostgreSQL` but you can also use `MySQL/MariaDB`.
