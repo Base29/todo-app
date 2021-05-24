@@ -12,27 +12,9 @@
       }}</span>
     </div>
     <div class="action-container">
-      <div class="done-btn">
-        <button
-          :class="[this.item.completed ? 'chkBox-done' : 'chkBox']"
-          @click="markDone()"
-          :disabled="isDisabled"
-        >
-          <font-awesome-icon icon="check-square" />
-        </button>
-      </div>
       <div class="edit-btn">
-        <button
-          :class="this.item.completed ? 'editpen-disabled' : 'editpen'"
-          @click="editItem()"
-          :disabled="isDisabled"
-        >
-          <font-awesome-icon icon="pen-square" />
-        </button>
-      </div>
-      <div class="del-btn">
-        <button @click="removeItem()" class="trashcan">
-          <font-awesome-icon icon="trash" />
+        <button @click="editItem" class="editmenu">
+          <font-awesome-icon icon="bars" />
         </button>
       </div>
     </div>
@@ -54,52 +36,11 @@ export default {
     },
   },
   methods: {
-    markDone() {
-      this.done = !this.item.completed;
-      const itemId = this.item.id;
-      const endpoint = `${API_URL}/done/${itemId}`;
-      const header = {
-        headers: {
-          Authorization: `Bearer ${this.$store.state.token}`,
-        },
-      };
-      const data = {
-        done: !this.item.completed,
-      };
-      axios
-        .put(endpoint, data, header)
-        .then((response) => {
-          if (response.status === 200) {
-            console.log("response", response.data);
-            this.$emit("itemchanged");
-          }
-        })
-        .catch((error) => {
-          console.log("error".error);
-        });
-    },
-
-    removeItem() {
-      const itemId = this.item.id;
-      const endpoint = `${API_URL}/item/${itemId}`;
-      const header = {
-        headers: {
-          Authorization: `Bearer ${this.$store.state.token}`,
-        },
-      };
-      axios
-        .delete(endpoint, header)
-        .then((response) => {
-          if (response.status === 200) {
-            this.$emit("itemchanged");
-          }
-        })
-        .catch((error) => console.log("error".error));
-    },
     editItem() {
       console.log("EDIT ITEM", this.item.id);
       const itemId = this.item.id;
-      this.$router.push({ name: "Edit", params: { itemId } });
+      const isCompleted = this.item.completed;
+      this.$router.push({ name: "Edit", params: { itemId, isCompleted } });
     },
   },
 };
@@ -133,42 +74,10 @@ export default {
   align-items: center;
 }
 
-.trashcan {
+.editmenu {
   background: none;
   border: none;
-  color: red;
-  outline: none;
-  font-size: 20px;
-}
-
-.editpen {
-  background: none;
-  border: none;
-  color: blue;
-  outline: none;
-  font-size: 20px;
-}
-
-.editpen-disabled {
-  background: none;
-  border: none;
-  color: #999999;
-  outline: none;
-  font-size: 20px;
-}
-
-.chkBox {
-  background: none;
-  border: none;
-  color: #999999;
-  outline: none;
-  font-size: 20px;
-}
-
-.chkBox-done {
-  background: none;
-  border: none;
-  color: #0be321;
+  color: #292828;
   outline: none;
   font-size: 20px;
 }

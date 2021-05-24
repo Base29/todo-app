@@ -14,15 +14,30 @@
         <div class="form-group">
           <input class="form-control" v-model="description" />
         </div>
-        <button class="btn btn-primary btn-block" @click.prevent="update">
-          UPDATE
-        </button>
-        <button
-          class="btn btn-danger btn-block"
-          @click.prevent="backToDashboard"
-        >
-          CANCEL
-        </button>
+        <div class="action-buttons">
+          <div class="left-col">
+            <button class="btn btn-primary btn-block" @click.prevent="update">
+              UPDATE
+            </button>
+            <button
+              class="btn btn-secondary btn-block"
+              @click.prevent="backToDashboard"
+            >
+              CANCEL
+            </button>
+          </div>
+          <div class="right-col">
+            <button class="btn btn-success btn-block" @click.prevent="markDone">
+              DONE
+            </button>
+            <button
+              class="btn btn-danger btn-block"
+              @click.prevent="removeItem"
+            >
+              DELETE
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -101,11 +116,68 @@ export default {
     backToDashboard() {
       this.$router.back();
     },
+
+    markDone() {
+      // this.done = !this.item.completed;
+      const itemId = this.$route.params.itemId;
+      const endpoint = `${API_URL}/done/${itemId}`;
+      const header = {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.token}`,
+        },
+      };
+      const data = {
+        done: !this.$route.params.isCompleted,
+      };
+      axios
+        .put(endpoint, data, header)
+        .then((response) => {
+          if (response.data.success) {
+            console.log("MARK DONE RES", response.data);
+            this.$router.push("/dashboard");
+          }
+        })
+        .catch((error) => {
+          console.log("error".error);
+        });
+    },
+
+    removeItem() {
+      const itemId = this.$route.params.itemId;
+      const endpoint = `${API_URL}/item/${itemId}`;
+      const header = {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.token}`,
+        },
+      };
+      axios
+        .delete(endpoint, header)
+        .then((response) => {
+          if (response.data.success) {
+            this.$router.push("/dashboard");
+          }
+        })
+        .catch((error) => console.log("error".error));
+    },
   },
 };
 </script>
 
 <style>
+.action-buttons {
+  display: flex;
+  width: 100%;
+}
+
+.left-col {
+  width: 50%;
+  padding: 2px;
+}
+
+.right-col {
+  width: 50%;
+  padding: 2px;
+}
 .update-item {
   background-color: #fff;
   border: 1px solid #eee;

@@ -28,7 +28,7 @@
           ADD
         </button>
         <button
-          class="btn btn-danger btn-block"
+          class="btn btn-secondary btn-block"
           @click.prevent="backToDashboard"
         >
           CANCEL
