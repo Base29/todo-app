@@ -37,7 +37,7 @@ $ cp .env.example .env
 
 ## Step 3
 
-Add database credentials in to the `.env` file. I have used `PostgreSQL` but you can also use `MySQL/MariaDB`.
+Add database credentials in to the `.env` file. You can use `PostgreSQL` or `MySQL/MariaDB`.
 
 ## Step 4
 
