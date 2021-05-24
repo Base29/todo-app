@@ -79,6 +79,16 @@ $ npm run dev
 
 Access the application at <http://localhost:8000>
 
+## Email Verification
+
+In order to test email verification functionality we need to setup [MailHog](https://github.com/mailhog/MailHog) locally or we can setup a [MailTrap](https://mailtrap.io/) account.
+
+In your `.env` file declare the following variable.
+
+```
+FRONT_END_URL=http://localhost:8000
+```
+
 ## Optional
 
 To generate bulk todo items please run the following command.
