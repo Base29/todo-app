@@ -6,6 +6,21 @@
       <span class="text-danger" v-if="this.error.length > 0">{{
         this.error[0]
       }}</span>
+      <div
+        class="alert alert-success alert-dismissible fade show"
+        role="alert"
+        v-if="registrationSuccess"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <form class="form">
         <div class="form-group">
           <input
@@ -86,6 +101,8 @@ export default {
       },
       loading: true,
       error: [],
+      registrationSuccess: false,
+      message: "",
     };
   },
   validations: {
@@ -132,10 +149,13 @@ export default {
         axios
           .post(endpoint, this.credentials)
           .then((res) => {
-            if (res.data.success) {
-              this.$router
-                .push("/login")
-                .catch((err) => console.log("ROUTER ERROR", err));
+            const { success, message } = res.data;
+            if (success) {
+              this.registrationSuccess = true;
+              this.message = message;
+              this.credentials.email = "";
+              this.credentials.password = "";
+              this.credentials.password_confirmation = "";
             }
           })
           .catch((err) => {

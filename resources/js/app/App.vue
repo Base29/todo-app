@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class='register' v-if="this.$store.state.token === ''">
-              <div class="home-container" v-if="this.$store.state.currentRoute === 'Login' || this.$store.state.currentRoute === 'Register'">
+              <div class="home-container" v-if="this.$store.state.currentRoute === 'Login' || this.$store.state.currentRoute === 'Register' || this.$store.state.currentRoute === 'VerifyEmail'">
                 <button class="home" @click="navigateToWelcome">
                   <font-awesome-icon icon="home" />
                 </button>
@@ -41,28 +41,6 @@ export default {
     return {
       searchTerm: "",
     };
-  },
-  mounted() {
-    if (this.$store.state.token !== "") {
-      axios
-        .post("/api/checktoken", { token: this.$store.state.token })
-        .then((res) => {
-          if (res.data.success) {
-            this.$router
-              .push("/dashboard")
-              .catch((err) => console.log("ROUTER ERROR", err));
-          }
-        })
-        .catch((err) => {
-          this.$store.commit("clearToken");
-          this.$router
-            .push("/")
-            .catch((err) => console.log("ROUTER ERROR", err));
-        });
-    } else {
-      this.$store.commit("clearToken");
-      this.$router.push("/");
-    }
   },
   methods: {
     logout() {

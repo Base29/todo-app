@@ -41,10 +41,10 @@ export default {
         .catch((err) => {
           this.loading = false;
           this.$store.commit("clearToken");
-          this.$router.push("/login");
+          this.$router.push("/");
         });
     } else {
-      this.$router.push("/login");
+      this.$router.push("/");
       this.loading = false;
     }
   },

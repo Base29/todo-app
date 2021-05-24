@@ -12,7 +12,10 @@ import {
     faEdit,
     faCheckSquare,
     faBars,
-    faHome
+    faHome,
+    faCheckCircle,
+    faTimesCircle,
+    faHandPaper
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vuelidate from "vuelidate";
@@ -28,7 +31,10 @@ library.add(
     faPenSquare,
     faCheckSquare,
     faBars,
-    faHome
+    faHome,
+    faCheckCircle,
+    faTimesCircle,
+    faHandPaper
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

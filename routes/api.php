@@ -47,5 +47,5 @@ Route::group(['namespace' => 'Api'], function () {
     Route::put('done/{id}', [TodoItemController::class, 'done']);
 
     // Route for verifying user email
-    Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('email-verification', [VerificationController::class, 'verify']);
 });

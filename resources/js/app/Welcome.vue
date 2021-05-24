@@ -19,6 +19,26 @@ export default {
   name: "Welcome",
   mounted() {
     this.$store.commit("setCurrentRoute", this.$router.currentRoute.name);
+    // if (this.$store.state.token !== "") {
+    //   axios
+    //     .post("/api/checktoken", { token: this.$store.state.token })
+    //     .then((res) => {
+    //       if (res.data.success) {
+    //         this.$router
+    //           .push("/dashboard")
+    //           .catch((err) => console.log("ROUTER ERROR", err));
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       this.$store.commit("clearToken");
+    //       this.$router
+    //         .push("/")
+    //         .catch((err) => console.log("ROUTER ERROR", err));
+    //     });
+    // } else {
+    //   this.$store.commit("clearToken");
+    //   this.$router.push("/");
+    // }
   },
   methods: {
     navigateToLogin() {

@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         return response([
             'success' => true,
-            'message' => 'User Registration successfull',
+            'message' => 'User Registration successfull. Check your inbox to verify email address',
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\TodoItem;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,5 +56,11 @@ class User extends Authenticatable implements JWTSubject
     public function items()
     {
         return $this->hasMany(TodoItem::class);
+    }
+
+    // Overriding laravel sendEmailVerificationNotification
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification());
     }
 }

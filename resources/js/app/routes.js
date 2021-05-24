@@ -6,6 +6,7 @@ import Register from "./Register";
 import EditItem from "./EditItem";
 import AddItem from "./AddItem";
 import Welcome from "./Welcome";
+import VerifyEmail from "./VerifyEmail.vue";
 
 Vue.use(VueRouter);
 
@@ -39,5 +40,10 @@ export const routes = [
         path: "/add",
         name: "Add",
         component: AddItem
+    },
+    {
+        path: "/verify-email",
+        name: "VerifyEmail",
+        component: VerifyEmail
     }
 ];
