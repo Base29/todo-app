@@ -35,6 +35,12 @@ OR
 $ cp .env.example .env
 ```
 
+In your `.env` file declare the following variable.
+
+```
+FRONT_END_URL=http://localhost:8000
+```
+
 ## Step 3
 
 Add database credentials in to the `.env` file. You can use `PostgreSQL` or `MySQL/MariaDB`.
@@ -82,12 +88,6 @@ Access the application at <http://localhost:8000>
 ## Email Verification
 
 In order to test email verification functionality we need to setup [MailHog](https://github.com/mailhog/MailHog) locally or we can setup a [MailTrap](https://mailtrap.io/) account.
-
-In your `.env` file declare the following variable.
-
-```
-FRONT_END_URL=http://localhost:8000
-```
 
 ## Optional
 
