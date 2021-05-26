@@ -104,7 +104,9 @@ export default {
     },
   },
   mounted() {
+    // Setting current route name
     this.$store.commit("setCurrentRoute", this.$router.currentRoute.name);
+    // Checking if the user has a valid JWT token
     const endpoint = `${API_URL}/checktoken`;
     if (this.$store.state.token !== "") {
       axios
@@ -134,6 +136,7 @@ export default {
           .then((res) => {
             const { success, message } = res.data;
             if (success) {
+              // Navigating login screen after successfull registration
               this.$router.push({
                 name: "Login",
                 params: {

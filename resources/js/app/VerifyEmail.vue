@@ -33,9 +33,11 @@ export default {
     };
   },
   mounted() {
+    // Setting current route name
     this.$store.commit("setCurrentRoute", this.$router.currentRoute.name);
   },
   methods: {
+    // Verify email API call
     async verifyEmail() {
       const endpoint = `${API_URL}/email-verification`;
       await axios
@@ -57,7 +59,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.query);
     this.verifyEmail();
   },
 };

@@ -43,6 +43,7 @@ export default {
     };
   },
   methods: {
+    // Logout API call
     logout() {
       axios
         .post("/api/logout", { token: this.$store.state.token })
@@ -56,22 +57,28 @@ export default {
         })
         .catch((err) => console.log("LOGOUT ERROR", err));
     },
+    // Navigating to Add Item screen
     navigateToAddItem() {
       this.$router.push("/add");
     },
+    // Navigating to Register screen
     navigateToRegister() {
       this.$router.push("/register");
     },
+    // Navigating to Login screen
     navigateToLogin() {
       this.$router.push("/login");
     },
+    // Method responsible for search
     search() {
       this.$root.$refs.Dashboard.getList(1, this.searchTerm, true);
     },
+    // Clearing search input field
     clearSearch() {
       this.searchTerm = "";
       this.$root.$refs.Dashboard.getList(1, this.searchTerm, true);
     },
+    // Navigating to Welcome screen
     navigateToWelcome() {
       this.$router.push("/");
     },
@@ -80,7 +87,6 @@ export default {
 </script>
 <style scoped>
 .navbar {
-  /* justify-content: flex-end; */
   height: 70px;
 }
 

@@ -10,6 +10,7 @@ import VerifyEmail from "./VerifyEmail.vue";
 
 Vue.use(VueRouter);
 
+// Routes
 export const routes = [
     {
         path: "/",

@@ -21,9 +21,11 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vuelidate from "vuelidate";
 import VueObserveVisibility from "vue-observe-visibility";
 
+// Modules
 Vue.use(VueObserveVisibility);
 Vue.use(Vuelidate);
 
+// Icons
 library.add(
     faPlusSquare,
     faTrash,

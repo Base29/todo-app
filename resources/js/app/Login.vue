@@ -93,7 +93,9 @@ export default {
     },
   },
   mounted() {
+    // Setting current route name
     this.$store.commit("setCurrentRoute", this.$router.currentRoute.name);
+    // Checking if the user has a valid JWT token
     if (this.$store.state.token !== "") {
       const endpoint = `${API_URL}/checktoken`;
       axios
@@ -116,6 +118,7 @@ export default {
     }
   },
   methods: {
+    // Login API call
     login() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
@@ -126,6 +129,7 @@ export default {
             if (res.data.success) {
               // Update the store
               this.$store.commit("setToken", res.data.user.token);
+              // Navigate to dashboard after successfull login
               this.$router
                 .push("/dashboard")
                 .catch((err) => console.log("ROUTER ERROR", err));
@@ -133,6 +137,7 @@ export default {
           })
           .catch((err) => {
             const { success, error, message } = err.response.data;
+            // If there is a error
             if (!success) {
               if (message) {
                 this.error = [];

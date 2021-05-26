@@ -8,7 +8,6 @@
 </template>
 <script>
 import ListItem from "./listItem";
-import API_URL from "./config";
 export default {
   name: "ListView",
   props: ["items"],
@@ -21,6 +20,7 @@ export default {
     };
   },
   methods: {
+    // Method for Infinite scroll
     handleInfiniteScroll(isVisible) {
       if (!isVisible) {
         return;

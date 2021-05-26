@@ -29,12 +29,8 @@ export default {
       done: this.item.completed,
     };
   },
-  computed: {
-    isDisabled: function () {
-      return !!this.item.completed;
-    },
-  },
   methods: {
+    // Navigating to Edit item screen with params
     editItem() {
       const itemId = this.item.id;
       const isCompleted = this.item.completed;

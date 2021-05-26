@@ -55,6 +55,7 @@ export default {
     };
   },
   mounted() {
+    // Checking if the user has a valid JWT token
     if (this.$store.state.token !== "") {
       const endpoint = `${API_URL}/checktoken`;
       axios
@@ -74,6 +75,7 @@ export default {
     }
   },
   methods: {
+    // API call for fetching data of a single todo item
     getItemData() {
       const itemId = this.$route.params.itemId;
       const endpoint = `${API_URL}/item/${itemId}`;
@@ -92,6 +94,7 @@ export default {
         })
         .catch((err) => console.log("SINGLE ITEM GET ERROR", err));
     },
+    // Update item API call
     update() {
       const itemId = this.$route.params.itemId;
       const endpoint = `${API_URL}/item/${itemId}`;
@@ -113,10 +116,11 @@ export default {
         })
         .catch((err) => console.log("UPDATE ERROR", err));
     },
+    // Navigating to dashboard
     backToDashboard() {
       this.$router.back();
     },
-
+    // API call for marking the item as Done
     markDone() {
       // this.done = !this.item.completed;
       const itemId = this.$route.params.itemId;
@@ -140,7 +144,7 @@ export default {
           console.log("error", err);
         });
     },
-
+    // Remove item API call
     removeItem() {
       const itemId = this.$route.params.itemId;
       const endpoint = `${API_URL}/item/${itemId}`;

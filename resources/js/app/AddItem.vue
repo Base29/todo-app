@@ -59,6 +59,7 @@ export default {
     },
   },
   mounted() {
+    // Checking if the user has a valid JWT token
     if (this.$store.state.token !== "") {
       const endpoint = `${API_URL}/checktoken`;
       axios
@@ -78,8 +79,11 @@ export default {
     }
   },
   methods: {
+    // Add item API call
     add() {
       this.$v.$touch();
+
+      // Checking if the form has all the feilds.
       if (!this.$v.$invalid) {
         const endpoint = `${API_URL}/item`;
         const data = {
@@ -95,6 +99,7 @@ export default {
           .post(endpoint, data, header)
           .then((response) => {
             if (response.data.success) {
+              // If the creation of todo item is successfull redirecting back to the dashboard.
               this.$router.push("/dashboard");
             }
           })

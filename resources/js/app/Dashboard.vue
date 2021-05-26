@@ -31,6 +31,7 @@ export default {
     };
   },
   mounted() {
+    // Checking if the user has a valid JWT token
     if (this.$store.state.token !== "") {
       const endpoint = `${API_URL}/checktoken`;
       axios
@@ -49,6 +50,7 @@ export default {
     }
   },
   methods: {
+    // Fetching Todo Items
     async getList(page, query, isReset) {
       if (page > this.lastPage) {
         return;
@@ -57,6 +59,7 @@ export default {
       const searchParam = query === undefined ? "" : query;
       const endpoint = `${API_URL}/items?page=${page}&q=${searchParam}`;
 
+      // Checking if isReset is not undefined
       if (isReset !== undefined) {
         this.items = [];
       }
@@ -82,6 +85,8 @@ export default {
   },
   created() {
     this.getList(1);
+
+    // Defining Ref
     this.$root.$refs.Dashboard = this;
   },
 };
