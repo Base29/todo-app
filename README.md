@@ -97,4 +97,4 @@ To generate bulk todo items please run the following command.
 $ php artisan db:seed --class=TodoItemSeeder
 ```
 
-Above command will seed the `todo_items` table with 40 records, Which can be used to test out infinite loading feature.
+Above command will seed the `todo_items` table with 40 records, Which can be used to test out infinite loading feature. Please note that these records will only be added for the user with `id = 2`
